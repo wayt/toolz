@@ -1,5 +1,7 @@
 # Toolz
 
+[![Build Status](https://travis-ci.org/Wayt/toolz.svg?branch=master)](https://travis-ci.org/Wayt/toolz) [![Go Report Card](https://goreportcard.com/badge/github.com/wayt/toolz)](https://goreportcard.com/report/github.com/wayt/toolz) [![GoDoc](https://godoc.org/github.com/Wayt/toolz/ginger?status.svg)](https://godoc.org/github.com/Wayt/toolz/ginger)
+
 This is a set of Golang tools designed to ease webapp creation
 
 ## Ginger

@@ -6,24 +6,29 @@ import (
 	"github.com/xeipuuv/gojsonschema"
 )
 
-var forms = make(map[string]gojsonschema.JSONLoader)
+// schemes store
+var schemes = make(map[string]gojsonschema.JSONLoader)
 
+// Scheme register a new jsonschema
+// It uses https://github.com/xeipuuv/gojsonschema
+// Check for jsonschema doc http://json-schema.org/
 func Scheme(name, jsonScheme string) gojsonschema.JSONLoader {
-	if _, ok := forms[name]; ok {
+	if _, ok := schemes[name]; ok {
 		panic(fmt.Errorf("duplicate scheme name: %s", name))
 	}
 
 	loader := gojsonschema.NewStringLoader(jsonScheme)
-	forms[name] = loader
+	schemes[name] = loader
 
 	return loader
 }
 
-func validate(data map[string]interface{}, formName string) error {
+// validate a data input for a givent scheme
+func validate(data map[string]interface{}, schemeName string) error {
 
-	schema, ok := forms[formName]
+	schema, ok := schemes[schemeName]
 	if !ok {
-		panic(fmt.Errorf("invalid form name: %s", formName))
+		panic(fmt.Errorf("invalid scheme name: %s", schemeName))
 	}
 
 	doc := gojsonschema.NewGoLoader(data)
@@ -37,7 +42,8 @@ func validate(data map[string]interface{}, formName string) error {
 	return nil
 }
 
+// hasScheme verify a scheme exist
 func hasScheme(name string) bool {
-	_, ok := forms[name]
+	_, ok := schemes[name]
 	return ok
 }
